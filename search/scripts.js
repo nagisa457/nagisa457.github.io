@@ -37,13 +37,40 @@ request.onload = function () {
     data.data.forEach(novel => {
 
       // 创建一个 div 元素并设置其 class 属性为 card
+      var videoId = data.data[0].videoId;
+      var secondUrl = 'https://api.pingcc.cn/videoChapter/search/' + videoId;
+      // 发送第二次请求
+      $.ajax({
+        url: secondUrl,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          // 如果请求成功
+          if (data.code == 0) {
+            // 获取视频的 M3U8 地址
+            var m3u8Url = data.data.chapterList[0].chapterPath;
+            // 创建一个按钮元素
+            var button = document.createElement('button');
+            button.textContent = '跳转';
+            // 创建一个 p 元素并设置其文本内容为 M3U8 地址
+            var m3u8Text = document.createElement('p');
+            m3u8Text.textContent = `M3U8链接:${m3u8Url}`;
+            // 给按钮添加点击事件，点击时跳转到最后一个 html 文件，并把 M3U8 地址作为 URL 参数传递
+            button.addEventListener('click', function() {
+              window.location.href = 'indexc.html?m3u8=' + encodeURIComponent(m3u8Url);
+            });
+            // 将按钮和 M3U8 文本添加到 card 元素中
+            card.appendChild(button);
+           
+          }
+        }
+      });
       const card = document.createElement('div');
       card.setAttribute('class', 'card');
 
       // 创建一个 h1 元素并设置其文本内容为小说的标题
       const h1 = document.createElement('h1');
       h1.textContent = novel.title;
-
       // 创建一个 p 元素并设置其文本内容为小说的描述（截取前 300 个字符）
       const p = document.createElement('p');
       novel.descs = novel.descs.substring(0, 400);
