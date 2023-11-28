@@ -12,10 +12,29 @@
 
   <body>
     <div id="root"></div>
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    
+、
+    <div id="buttonContainer"></div>
+    <style>
+      .button-container {
+        display: flex;
+        justify-content: center;
+      }
+      .button-container button {
+        width: 100px; /* 设置按钮的宽度 */
+        height: 50px; /* 设置按钮的高度 */
+        font-size: 16px; /* 设置按钮的字体大小 */}
+    </style>
+    <div class="button-container">
+      <button id="1" onclick="f(0)">1</button>
+    <button id="2" onclick="f(1)">2</button>
+    <button id="3"onclick="f(2)">3</button>
+    <button id="4"onclick="f(3)">4</button>
+    <button id="5" onclick="f(4)">5</button>
+    </div>
+ 
+  </body>  
+ 
+   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>    
 
     <script src="scripts.js"></script>
- 
-  </body>
 </html>
